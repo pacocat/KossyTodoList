@@ -1,0 +1,87 @@
+: cascade base
+: around content -> {
+<div class="container">
+<h2>Jun's TODO list</h2>
+
+<form method="post" action="<: $c.req.uri_for('/create') :>">
+	: if $error {
+	<p>System Error! <em>try again</em>.</p>
+	: for $messages.keys() -> $key {
+	<p><em><: $messages[$key] :></em></p>
+	: }
+	: }
+
+	<fieldset>
+	<div class="clearfix">
+	<label>Enter Text</label>
+	<div class="input">
+	<textarea class="span5" name="text" rows="5"></textarea>
+	</div>
+	</div>
+
+	<div class="clearfix">
+	<label>due ex) '2013-09-29 19:54:10'</label>
+	<div class="input">
+	<input class="xlarge" name="due" />
+	</div>
+	</div>
+
+	<div class="actions">
+	<input type="submit" class="btn btn-primary" style="margin-top:20px;" value="Submit" />
+	</div>
+	</fieldset>
+</form>
+
+<table class="table table-hover">
+<tr>
+<th>TaskID</th><th>Status</th><th>TO DO</th><th>due date</th><th>date created</th><th>date updated</th><th colspan="2">Actions</th>
+</tr>
+: for $entries -> $entry {
+<tr class=
+: if ($entry.done==4){
+    "error"
+	: } elsif ($entry.done==3){
+	"warning"
+	: } elsif ($entry.done==2){
+	"success"
+	: } elsif ($entry.done==1){
+	"info"
+	: } elsif ($entry.done==3){
+	""
+: }
+>
+	<td><: $entry.id :></td>
+	<td>
+	: if ($entry.done==4){
+    至急
+	: } elsif ($entry.done==3){
+	重要
+	: } elsif ($entry.done==2){
+	様子見
+	: } elsif ($entry.done==1){
+	余裕があれば
+	: } elsif ($entry.done==0){
+	未達
+	: }
+	</td>
+	<td><: $entry.text :></td>
+	<td><: $entry.due_at :></td>
+	<td><: $entry.created_at :></td>
+	<td><: $entry.updated_at :></td>
+	<td>
+	<form method="post" action="<: $c.req.uri_for('/delete') :>">
+		<input type="hidden" name="id" value="<: $entry.id :>" />
+		<input type="submit" class="btn btn-danger" style="margin-top:20px;" value="delete" />
+	</form>
+	</td>
+	<td>
+	<form method="post" action="<: $c.req.uri_for('/update') :>">
+		<input type="hidden" name="id" value="<: $entry.id :>" />
+		<input type="submit" class="btn btn-primary" style="margin-top:20px;" value="edit" />
+	</form>
+	</td>
+</tr>
+: }
+</table>
+</div>
+: }
