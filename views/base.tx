@@ -4,7 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 <title>KossyTodoList</title>
 <link rel="shortcut icon" href="<: $c.req.uri_for('/favicon.ico') :>" type="image/vnd.microsoft.icon" />
-<link rel="stylesheet" href="<: $c.req.uri_for('/css/bootstrap.min.css') :>">
+<!-- <link rel="stylesheet" href="<: $c.req.uri_for('/css/bootstrap.min.css') :>"> -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="<: $c.req.uri_for('/css/main.css') :>">
+<link rel="stylesheet" href="<: $c.req.uri_for('/css/datepicker.css') :>">
 <style>
 body {
   padding-top: 60px;
@@ -14,7 +17,28 @@ body {
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<a class="navbar-brand" href="<: $c.req.uri_for('/') :>">Jun's ToDo</a>
+	</div>
+	<div class="navbar-header">
+		<a class="navbar-brand" href="<: $c.req.uri_for('/about') :>">About</a>
+	</div>
+	<div class="navbar-header">
+		<a class="navbar-brand" href="<: $c.req.uri_for('/contact') :>">Contact</a>
+	</div>
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  
+<!-- 	<form class="navbar-form navbar-left" role="search">
+	 	<div class="form-group">
+	 		<input type="text" class="form-control" placeholder="Search">
+	 	</div>
+	 	<button type="submit" class="btn btn-default">Submit</button>
+	</form> -->
+  
+</nav>
+<!-- <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -29,10 +53,10 @@ body {
 <li><a href="<: $c.req.uri_for('/about') :>">About</a></li>
 <li><a href="<: $c.req.uri_for('/contact') :>">Contact</a></li>
 </ul>
-</div> <!--/.nav-collapse -->
+</div> /.nav-collapse 
 </div>
 </div>
-</div>
+</div> -->
 
 <div class="container">
 
@@ -42,6 +66,14 @@ body {
 
 <script type="text/javascript" src="<: $c.req.uri_for('/js/jquery.min.js') :>"></script>
 <script type="text/javascript" src="<: $c.req.uri_for('/js/bootstrap.min.js') :>"></script>
+<script type="text/javascript" src="<: $c.req.uri_for('/js/bootstrap-datepicker.js') :>"></script>
+<script type="text/javascript" >
+	$(function(){
+		$("#dp3").datepicker({
+			format: 'yyyy-mm-dd'
+		});
+	});
+</script>
 </body>
 </html>
 

@@ -1,7 +1,7 @@
 : cascade base
 : around content -> {
 <div class="container">
-<h2>Jun's TODO list</h2>
+
 
 <form method="post" action="<: $c.req.uri_for('/create') :>">
 	: if $error {
@@ -11,41 +11,96 @@
 	: }
 	: }
 
-	<fieldset>
+<div class="row">
+  <div class="col-xs-6">
 	<div class="clearfix">
 	<label>Enter Text</label>
 	<div class="input">
-	<textarea class="span5" name="text" rows="5"></textarea>
+	<textarea class="form-control" rows="3" name="text"></textarea>
 	</div>
 	</div>
-
+  </div>
+<div class="col-xs-4">
+<!-- 	<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+  		<input class="span2" size="16" type="text" name="due" value="12-02-2012">
+  		<span class="add-on"><i class="icon-th"></i></span>
+	</div> -->
 	<div class="clearfix">
-	<label>due ex) '2013-09-29 19:54:10'</label>
-	<div class="input">
-	<input class="xlarge" name="due" />
+		<label>due</label>
+		<div class="input">
+			<input class="form-control" name="due" value="2013-09-29 17:00:00" />
+		</div>
 	</div>
-	</div>
+<div class="controls" rows="2">
+	<label>status</label>
+     	      <select class="form-control" name="done">
+     	      	   <option value=0>未達</option>
+   		           <option value=1>余裕があれば</option>
+                   <option value=2>様子見</option>
+                   <option value=3>重要</option>
+                   <option value=4>至急</option>
+              </select>
+          </div>
+  </div>
 
-	<div class="actions">
+  	<div class="actions">
 	<input type="submit" class="btn btn-primary" style="margin-top:20px;" value="Submit" />
 	</div>
-	</fieldset>
+</div>
+
+	
+
+	
 </form>
 
-<table class="table table-hover">
+<hr/>
+
+<form method="post" action="<: $c.req.uri_for('/') :>">
+
+<div class="row">
+  <div class="col-xs-6 col-md-2" style="padding-right: 0px;">
+	<div class="controls">
+     	      <select class="form-control" name="search">
+     	      	   <option value="id">TaskID</option>
+   		           <option value="done">Status</option>
+                   <option value="due_at">Due Date</option>
+                   <option value="created_at">Created Date</option>
+              </select>
+	</div>
+  </div>
+   <div class="col-xs-6 col-md-1" style="padding-left: 5px;">
+   	<button type="submit" class="btn btn-primary">Sort</button>
+	<!-- <input type="submit" class="btn btn-primary" style="margin-top:20px;" value="sort" /> -->
+   </div>
+  <div class="col-xs-6 col-md-4">
+  </div>
+  <div class="col-xs-6 col-md-4"></div>
+</div>
+</form>
+<table class="table table-hover table-bordered">
 <tr>
-<th>TaskID</th><th>Status</th><th>TO DO</th><th>due date</th><th>date created</th><th>date updated</th><th colspan="2">Actions</th>
+	<thead>
+	<th>TaskID</th>
+	<th>Status</th>
+	<th>TO DO</th>
+	<th>
+		due date
+	</th>
+	<th>date created</th>
+	<th>date updated</th>
+	<th colspan="2">Actions</th>
+	</thead>
 </tr>
 : for $entries -> $entry {
 <tr class=
 : if ($entry.done==4){
-    "error"
+    "danger"
 	: } elsif ($entry.done==3){
 	"warning"
 	: } elsif ($entry.done==2){
 	"success"
 	: } elsif ($entry.done==1){
-	"info"
+	"active"
 	: } elsif ($entry.done==3){
 	""
 : }
@@ -65,19 +120,21 @@
 	: }
 	</td>
 	<td><: $entry.text :></td>
-	<td><: $entry.due_at :></td>
+	<td>
+		<: $entry.due_at :>
+	</td>
 	<td><: $entry.created_at :></td>
 	<td><: $entry.updated_at :></td>
-	<td>
-	<form method="post" action="<: $c.req.uri_for('/delete') :>">
+		<td>
+	<form method="post" action="<: $c.req.uri_for('/update') :>">
 		<input type="hidden" name="id" value="<: $entry.id :>" />
-		<input type="submit" class="btn btn-danger" style="margin-top:20px;" value="delete" />
+		<input type="submit" class="btn btn-primary" style="margin-top:10px;" value="edit" />
 	</form>
 	</td>
 	<td>
-	<form method="post" action="<: $c.req.uri_for('/update') :>">
+	<form method="post" action="<: $c.req.uri_for('/delete') :>">
 		<input type="hidden" name="id" value="<: $entry.id :>" />
-		<input type="submit" class="btn btn-primary" style="margin-top:20px;" value="edit" />
+		<input type="submit" class="btn btn-danger" style="margin-top:10px;" value="delete" />
 	</form>
 	</td>
 </tr>

@@ -10,37 +10,25 @@
 	: }
 	: }
 
-	<fieldset>
+	<div class="row">
+  <div class="col-xs-6">
 	<div class="clearfix">
 	<label>Enter Text</label>
 	<div class="input">
-	<textarea class="span5" name="text" rows="5"><: $entry.text :></textarea>
+	<textarea class="form-control" rows="3" name="text"><: $entry.text :></textarea>
 	</div>
 	</div>
-
+  </div>
+<div class="col-xs-4">
 	<div class="clearfix">
-	<label>due ex) '2013-09-29 19:54:10'</label>
-	<div class="input">
-	<input class="xlarge" name="due" value="<: $entry.due_at :>"/>
+		<label>due</label>
+		<div class="input">
+			<input class="form-control" name="due" value="<: $entry.due_at :>" />
+		</div>
 	</div>
-	</div>
-<br/>
-	<div class="control-group">
- 	   <label class="control-label" for="select01">Status: 現在は「
- 	   	: if ($entry.done==4){
-    至急
-	: } elsif ($entry.done==3){
-	重要
-	: } elsif ($entry.done==2){
-	様子見
-	: } elsif ($entry.done==1){
-	余裕があれば
-	: } elsif ($entry.done==0){
-	未達
-	: }
-	」です。</label>
-    	   <div class="controls">
-     	      <select id="select01" name="done">
+<div class="controls" rows="2">
+	<label>status</label>
+     	      <select class="form-control" name="done">
      	      	   <option value=0>未達</option>
    		           <option value=1>余裕があれば</option>
                    <option value=2>様子見</option>
@@ -48,15 +36,17 @@
                    <option value=4>至急</option>
               </select>
           </div>
-    </div>
+  </div>
 
-
-
-	<div class="actions">
-	<input type="hidden" name="id" value="<: $entry.id :>" />
-	<input type="submit" class="btn btn-primary" style="margin-top:20px;" value="edit" />
+  	<div class="actions">
+ 	<input type="hidden" name="id" value="<: $entry.id :>" />
+	<input type="submit" class="btn btn-primary" style="margin-top:20px;" value="Submit" />
 	</div>
-	</fieldset>
+</div>
+
+
+
+
 </form>
 
 

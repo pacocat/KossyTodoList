@@ -64,8 +64,18 @@ sub add_entry {
 
 get '/' => [qw/set_title/] => sub {
     my ( $self, $c )  = @_;
+    my $search_param //= 'done';
     my @entries = $self->db->search('todos', {}, {
-        order_by => { 'created_at' => 'DESC'}, });
+        order_by => { $search_param => 'DESC'}, });
+    $c->render('index.tx', { entries => \@entries });
+};
+
+post '/' => [qw/set_title/] => sub {
+    my ( $self, $c )  = @_;
+    my $search_param = $c->req->param('search');
+    $search_param //= 'done';
+    my @entries = $self->db->search('todos', {}, {
+        order_by => { $search_param => 'DESC'}, });
     $c->render('index.tx', { entries => \@entries });
 };
 
